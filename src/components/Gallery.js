@@ -23,15 +23,8 @@ export const query = graphql`
 
 export default class Gallery extends Component {
   state = {
-    loaded: false,
-    isOpen: false,
     sliderImages: [],
     index: 0
-  }
-
-  isOpen(isOpen, index) {
-    if (typeof index === 'undefined') index = 0
-    this.setState({ isOpen, index })
   }
 
   getImageInfo = (img, index) =>
@@ -81,11 +74,10 @@ export default class Gallery extends Component {
                 <figure
                   className="Gallery--Item"
                   key={_kebabCase(image.alt) + '-' + index}
-                  onClick={() => this.isOpen(true, index)}
                 >
                   <div>
                     <Image
-                      resolutions="small"
+                      resolutions="medium"
                       src={image.image}
                       alt={image.alt}
                     />
@@ -95,18 +87,7 @@ export default class Gallery extends Component {
               ))}
             </div>
           )}
-        {this.state.loaded &&
-          this.state.sliderImages.length > 0 && (
-            <PhotoSwipe
-              isOpen={this.state.isOpen}
-              items={this.state.sliderImages}
-              options={{
-                index: this.state.index,
-                history: false
-              }}
-              onClose={() => this.isOpen(false)}
-            />
-          )}
+ 
       </Fragment>
     )
   }
